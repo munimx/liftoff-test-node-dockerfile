@@ -18,7 +18,7 @@ jobs:
             context: "."
             dockerfilePath: "Dockerfile"
             buildStrategy: "auto"
-            imageRepository: "aca-delegated-test/production"
+            imageRepository: "aca-delegated-test/aks-live"
             command: ""
     steps:
       - uses: actions/checkout@v4
@@ -198,11 +198,11 @@ jobs:
           fi
 
           PAYLOAD=$(cat <<JSONEOF
-          {"environmentId":"cmsuxkarv0007109q00eacx0u","serviceName":"$SERVICE_NAME","imageUri":"$IMAGE_URI","commitSha":"$GITHUB_SHA","status":"$JOB_STATUS","runUrl":"$RUN_URL","buildStrategy":"$BUILD_STRATEGY","buildPlan":$BUILD_PLAN_JSON,"buildLogsBase64":$BUILD_LOGS_JSON}
+          {"environmentId":"cmsym7arn000111g9mjrvvndd","serviceName":"$SERVICE_NAME","imageUri":"$IMAGE_URI","commitSha":"$GITHUB_SHA","status":"$JOB_STATUS","runUrl":"$RUN_URL","buildStrategy":"$BUILD_STRATEGY","buildPlan":$BUILD_PLAN_JSON,"buildLogsBase64":$BUILD_LOGS_JSON}
           JSONEOF
           )
 
           curl -X POST https://api.tryliftoff.tech/api/v1/webhooks/deploy-complete \
-            -H "X-Liftoff-Secret: ${{ secrets.LIFTOFF_DEPLOY_SECRET_CMSUXKARV0007109Q00EACX0U }}" \
+            -H "X-Liftoff-Secret: ${{ secrets.LIFTOFF_DEPLOY_SECRET_CMSYM7ARN000111G9MJRVVNDD }}" \
             -H "Content-Type: application/json" \
             -d "$PAYLOAD"
